@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Alien Maze FPS</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+          "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+        }
+      }
+    </script>
+    <script type="module" src="js/game.js"></script>
+  </head>
+  <body class="theme-dark">
+    <div id="game-root">
+      <div id="hud" class="hidden">
+        <div class="hud-top">
+          <div class="hud-card"><span class="label">WAVE</span><strong id="wave-number">1 / 5</strong></div>
+          <div class="hud-card"><span class="label">SCORE</span><strong id="score">0</strong></div>
+          <div class="hud-card"><span class="label">ALIENS LEFT</span><strong id="enemies-left">0</strong></div>
+          <div class="hud-card"><span class="label">TIME</span><strong id="timer">00:00</strong></div>
+        </div>
+
+        <div id="minimap-wrap">
+          <canvas id="minimap" width="220" height="220" aria-label="Maze minimap"></canvas>
+          <span class="map-label">RADAR</span>
+        </div>
+
+        <div class="hud-bottom">
+          <div class="health-box">
+            <span class="label">HEALTH</span>
+            <div class="bar"><div id="health-fill"></div></div>
+            <strong id="health-text">100 / 100 HP</strong>
+          </div>
+          <div class="ammo-box">
+            <span class="label">LASER AMMO</span>
+            <strong id="ammo">30 / 30</strong>
+            <span class="hint">R TO RELOAD</span>
+          </div>
+        </div>
+
+        <div id="crosshair"><i></i><b></b></div>
+        <div id="message" role="status"></div>
+        <div id="mode-badge">DARK MODE</div>
+        <button id="mode-toggle" class="small-button">Switch to Light</button>
+        <span id="mode-hint">Press L to toggle Light/Dark Mode</span>
+        <button id="mute-toggle" class="small-button mute-button">Mute Audio</button>
+
+        <div id="boss-hud" class="hidden">
+          <div class="boss-label">
+            <span id="boss-name">THE OVERMIND</span>
+            <span id="boss-health-text">100%</span>
+          </div>
+          <div class="boss-bar"><div id="boss-health-fill"></div></div>
+        </div>
+      </div>
+
+      <section id="start-screen" class="overlay">
+        <div class="menu-panel">
+          <p class="eyebrow">FIRST-PERSON SURVIVAL</p>
+          <h1>ALIEN <span>MAZE</span></h1>
+          <p class="subtitle">Five waves. No safe corners. Build your power and survive the Overmind.</p>
+
+          <div class="controls-grid">
+            <div><b>W A S D</b><span>Move</span></div>
+            <div><b>MOUSE</b><span>Look / Aim</span></div>
+            <div><b>HOLD LEFT CLICK</b><span>Automatic fire</span></div>
+            <div><b>R</b><span>Reload</span></div>
+            <div><b>ESC</b><span>Pause</span></div>
+            <div><b>L</b><span>Toggle Light / Dark</span></div>
+          </div>
+
+          <button id="play-button" class="primary-button">ENTER THE MAZE</button>
+          <p class="footnote">Enemies always know where you are. Choose one upgrade after each cleared wave.</p>
+        </div>
+      </section>
+
+      <section id="pause-screen" class="overlay hidden">
+        <div class="menu-panel compact">
+          <p class="eyebrow">GAME PAUSED</p>
+          <h2>Take a breath.</h2>
+          <p class="subtitle">Your progress is safe.</p>
+          <button id="resume-button" class="primary-button">RESUME</button>
+          <button id="pause-restart-button" class="secondary-button">RESTART RUN</button>
+        </div>
+      </section>
+
+      <section id="upgrade-screen" class="overlay hidden">
+        <div class="upgrade-panel">
+          <p class="eyebrow">WAVE CLEARED</p>
+          <h2 id="upgrade-title">Choose your upgrade</h2>
+          <p id="upgrade-subtitle" class="subtitle">Select one power-up. Your build persists until the run ends.</p>
+          <div id="upgrade-cards" class="upgrade-cards"></div>
+        </div>
+      </section>
+
+      <section id="end-screen" class="overlay hidden">
+        <div class="menu-panel compact">
+          <p id="end-eyebrow" class="eyebrow">MISSION COMPLETE</p>
+          <h2 id="end-title">Maze cleared.</h2>
+          <p id="end-summary" class="subtitle">You survived.</p>
+          <button id="restart-button" class="primary-button">PLAY AGAIN</button>
+        </div>
+      </section>
+
+      <div id="loading-note">Loading the maze…</div>
+    </div>
+  </body>
+</html>
